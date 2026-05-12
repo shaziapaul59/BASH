@@ -1,71 +1,157 @@
-export default function BrainOrbitWebsite() {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white text-gray-800">
-      <header className="bg-blue-700 text-white p-6 shadow-lg">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h1 className="text-3xl font-bold">BrainOrbit</h1>
-          <nav className="space-x-6 text-lg">
-            <a href="#home" className="hover:text-yellow-300">Home</a>
-            <a href="#courses" className="hover:text-yellow-300">Courses</a>
-            <a href="#about" className="hover:text-yellow-300">About</a>
-            <a href="#contact" className="hover:text-yellow-300">Contact</a>
-          </nav>
-        </div>
-      </header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrainOrbit</title>
 
-      <section id="home" className="py-20 text-center px-6">
-        <h2 className="text-5xl font-extrabold mb-6 text-blue-800">
-          Learn Maths & Science Online
-        </h2>
-        <p className="text-xl max-w-3xl mx-auto mb-8">
-          BrainOrbit helps students understand Maths and Science with easy lessons,
-          quizzes, videos, and live classes.
-        </p>
-        <button className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-4 rounded-2xl text-xl shadow-xl">
-          Start Learning
-        </button>
-      </section>
+  <style>
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:#f4f9ff;
+      color:#222;
+    }
 
-      <section id="courses" className="max-w-6xl mx-auto py-16 px-6 grid md:grid-cols-3 gap-8">
-        <div className="bg-white rounded-3xl shadow-xl p-8">
-          <h3 className="text-2xl font-bold mb-4 text-blue-700">Mathematics</h3>
-          <p>
-            Algebra, Geometry, Trigonometry, Calculus, and problem-solving lessons.
-          </p>
-        </div>
+    header{
+      background:#0b57d0;
+      color:white;
+      padding:20px;
+      text-align:center;
+    }
 
-        <div className="bg-white rounded-3xl shadow-xl p-8">
-          <h3 className="text-2xl font-bold mb-4 text-blue-700">Science</h3>
-          <p>
-            Physics, Chemistry, Biology, experiments, and concept-based learning.
-          </p>
-        </div>
+    nav a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
 
-        <div className="bg-white rounded-3xl shadow-xl p-8">
-          <h3 className="text-2xl font-bold mb-4 text-blue-700">Live Classes</h3>
-          <p>
-            Interactive live sessions with teachers, doubt solving, and practice tests.
-          </p>
-        </div>
-      </section>
+    .hero{
+      text-align:center;
+      padding:80px 20px;
+      background:linear-gradient(to right,#dbeafe,#ffffff);
+    }
 
-      <section id="about" className="bg-blue-50 py-16 px-6 text-center">
-        <h2 className="text-4xl font-bold text-blue-800 mb-6">About BrainOrbit</h2>
-        <p className="max-w-4xl mx-auto text-lg">
-          BrainOrbit is an educational platform designed to make learning fun and easy.
-          Our mission is to help students build strong concepts and score better in exams.
-        </p>
-      </section>
+    .hero h1{
+      font-size:50px;
+      color:#0b57d0;
+    }
 
-      <section id="contact" className="py-16 px-6 text-center">
-        <h2 className="text-4xl font-bold text-blue-800 mb-6">Contact Us</h2>
-        <p className="text-lg">Email: support@brainorbit.com</p>
-        <p className="text-lg">Phone: +91 98765 43210</p>
-      </section>
+    .hero p{
+      font-size:22px;
+      max-width:700px;
+      margin:auto;
+    }
 
-      <footer className="bg-blue-700 text-white text-center p-6 mt-10">
-        <p>© 2026 BrainOrbit. All rights reserved.</p>
-      </footer>
-    </div>
-  );
-}
+    .btn{
+      display:inline-block;
+      margin-top:25px;
+      padding:15px 30px;
+      background:#0b57d0;
+      color:white;
+      text-decoration:none;
+      border-radius:10px;
+      font-size:18px;
+    }
+
+    .courses{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+      padding:50px 20px;
+      max-width:1100px;
+      margin:auto;
+    }
+
+    .card{
+      background:white;
+      padding:25px;
+      border-radius:15px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .card h2{
+      color:#0b57d0;
+    }
+
+    .about,.contact{
+      text-align:center;
+      padding:60px 20px;
+    }
+
+    footer{
+      background:#0b57d0;
+      color:white;
+      text-align:center;
+      padding:20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>BrainOrbit</h1>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#courses">Courses</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Learn Maths & Science Online</h1>
+
+  <p>
+    BrainOrbit helps students learn Maths and Science easily with online classes,
+    quizzes, notes, and video lessons.
+  </p>
+
+  <a href="#courses" class="btn">Start Learning</a>
+</section>
+
+<section class="courses" id="courses">
+
+  <div class="card">
+    <h2>Mathematics</h2>
+    <p>Learn Algebra, Geometry, Trigonometry, and Calculus.</p>
+  </div>
+
+  <div class="card">
+    <h2>Science</h2>
+    <p>Explore Physics, Chemistry, Biology, and practical concepts.</p>
+  </div>
+
+  <div class="card">
+    <h2>Live Classes</h2>
+    <p>Attend live sessions and solve doubts with teachers.</p>
+  </div>
+
+</section>
+
+<section class="about" id="about">
+  <h2>About BrainOrbit</h2>
+
+  <p>
+    BrainOrbit is an educational platform designed to make learning simple,
+    interactive, and fun.
+  </p>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Contact Us</h2>
+
+  <p>Email: support@brainorbit.com</p>
+
+  <p>Phone: +91 9876543210</p>
+</section>
+
+<footer>
+  <p>© 2026 BrainOrbit. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
