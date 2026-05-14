@@ -1,180 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Brain Orbit Whiteboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body{
-      margin:0;
-      font-family:Arial, sans-serif;
-      background:#f3f4f6;
-      text-align:center;
-    }
+<title>Brain Orbit</title>
 
-    .navbar{
-      background:#1e3a8a;
-      color:white;
-      padding:15px;
-      font-size:24px;
-      font-weight:bold;
-    }
+<style>
 
-    .live-btn{
-      margin-top:30px;
-      padding:15px 30px;
-      font-size:20px;
-      border:none;
-      border-radius:10px;
-      background:#2563eb;
-      color:white;
-      cursor:pointer;
-    }
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f3f4f6;
+}
 
-    .live-btn:hover{
-      background:#1d4ed8;
-    }
+/* NAVBAR */
 
-    #whiteboard-container{
-      display:none;
-      margin-top:20px;
-    }
+.navbar{
+    background:#1e3a8a;
+    color:white;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 
-    .tools{
-      margin:15px;
-    }
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
 
-    .tools button{
-      padding:10px 15px;
-      margin:5px;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      font-size:16px;
-    }
+.menu a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-size:18px;
+}
 
-    canvas{
-      border:3px solid black;
-      background:white;
-      cursor:crosshair;
-    }
+/* HERO SECTION */
 
-    .black{ background:black; color:white; }
-    .red{ background:red; color:white; }
-    .blue{ background:blue; color:white; }
-    .green{ background:green; color:white; }
-    .eraser{ background:gray; color:white; }
-    .clear{ background:#111827; color:white; }
+.hero{
+    text-align:center;
+    padding:80px 20px;
+    background:linear-gradient(to right,#2563eb,#1e40af);
+    color:white;
+}
 
-  </style>
+.hero h1{
+    font-size:55px;
+}
+
+.hero p{
+    font-size:22px;
+}
+
+.hero button{
+    padding:15px 30px;
+    border:none;
+    border-radius:10px;
+    background:white;
+    color:#1e3a8a;
+    font-size:20px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+/* FEATURES */
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:40px;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+.card h2{
+    color:#1e3a8a;
+}
+
+/* LIVE CLASS */
+
+#live-class{
+    display:none;
+    padding:20px;
+}
+
+/* TOOLS */
+
+.tools{
+    margin-bottom:15px;
+    text-align:center;
+}
+
+.tools button{
+    padding:10px 15px;
+    margin:5px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    color:white;
+    font-size:16px;
+}
+
+.black{background:black;}
+.red{background:red;}
+.blue{background:blue;}
+.green{background:green;}
+.eraser{background:gray;}
+.clear{background:#111827;}
+
+canvas{
+    border:3px solid black;
+    background:white;
+    display:block;
+    margin:auto;
+    cursor:crosshair;
+}
+
+/* FOOTER */
+
+.footer{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+</style>
 </head>
+
 <body>
 
-  <div class="navbar">
-    Brain Orbit Live Whiteboard
-  </div>
+<!-- NAVBAR -->
 
-  <button class="live-btn" onclick="openWhiteboard()">
-    Open Live Class
-  </button>
+<div class="navbar">
 
-  <div id="whiteboard-container">
+    <div class="logo">
+        Brain Orbit
+    </div>
+
+    <div class="menu">
+        <a href="#">Home</a>
+        <a href="#">Notes</a>
+        <a href="#">Courses</a>
+        <a href="#">Live Classes</a>
+        <a href="#">Contact</a>
+    </div>
+
+</div>
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <h1>Welcome to Brain Orbit</h1>
+
+    <p>
+        Learn Maths & Science in a Smart and Interactive Way
+    </p>
+
+    <button onclick="openLiveClass()">
+        Join Live Class
+    </button>
+
+</div>
+
+<!-- FEATURES -->
+
+<div class="features">
+
+    <div class="card">
+        <h2>📚 Notes</h2>
+        <p>Easy and detailed notes for students.</p>
+    </div>
+
+    <div class="card">
+        <h2>🎥 Live Classes</h2>
+        <p>Interactive online classes with whiteboard.</p>
+    </div>
+
+    <div class="card">
+        <h2>🧪 Science Learning</h2>
+        <p>Understand science with diagrams and examples.</p>
+    </div>
+
+    <div class="card">
+        <h2>➗ Maths Practice</h2>
+        <p>Solve problems and improve concepts easily.</p>
+    </div>
+
+</div>
+
+<!-- LIVE CLASS SECTION -->
+
+<div id="live-class">
+
+    <h1 style="text-align:center;color:#1e3a8a;">
+        Brain Orbit Live Whiteboard
+    </h1>
+
+    <!-- TOOLS -->
 
     <div class="tools">
 
-      <!-- Pen Colors -->
-      <button class="black" onclick="changeColor('black')">Black Pen</button>
-      <button class="red" onclick="changeColor('red')">Red Pen</button>
-      <button class="blue" onclick="changeColor('blue')">Blue Pen</button>
-      <button class="green" onclick="changeColor('green')">Green Pen</button>
+        <button class="black" onclick="changeColor('black')">
+            Black Pen
+        </button>
 
-      <!-- Eraser -->
-      <button class="eraser" onclick="eraser()">Eraser</button>
+        <button class="red" onclick="changeColor('red')">
+            Red Pen
+        </button>
 
-      <!-- Brush Sizes -->
-      <button onclick="changeSize(2)">Small</button>
-      <button onclick="changeSize(5)">Medium</button>
-      <button onclick="changeSize(10)">Large</button>
+        <button class="blue" onclick="changeColor('blue')">
+            Blue Pen
+        </button>
 
-      <!-- Clear -->
-      <button class="clear" onclick="clearBoard()">Clear Board</button>
+        <button class="green" onclick="changeColor('green')">
+            Green Pen
+        </button>
+
+        <button class="eraser" onclick="eraser()">
+            Eraser
+        </button>
+
+        <button onclick="changeSize(2)">
+            Small
+        </button>
+
+        <button onclick="changeSize(5)">
+            Medium
+        </button>
+
+        <button onclick="changeSize(10)">
+            Large
+        </button>
+
+        <button class="clear" onclick="clearBoard()">
+            Clear Board
+        </button>
 
     </div>
 
+    <!-- WHITEBOARD -->
+
     <canvas id="board" width="1100" height="500"></canvas>
 
-  </div>
+</div>
 
-  <script>
+<!-- FOOTER -->
 
-    function openWhiteboard(){
-      document.getElementById("whiteboard-container").style.display = "block";
-    }
+<div class="footer">
+    © 2026 Brain Orbit | Learn Smart. Grow Beyond.
+</div>
 
-    const canvas = document.getElementById("board");
-    const ctx = canvas.getContext("2d");
+<script>
 
-    let drawing = false;
-    let currentColor = "black";
-    let brushSize = 3;
+/* OPEN LIVE CLASS */
 
-    canvas.addEventListener("mousedown", start);
-    canvas.addEventListener("mouseup", stop);
-    canvas.addEventListener("mousemove", draw);
+function openLiveClass(){
+    document.getElementById("live-class").style.display = "block";
 
-    function start(e){
-      drawing = true;
-      draw(e);
-    }
+    window.scrollTo({
+        top:document.getElementById("live-class").offsetTop,
+        behavior:"smooth"
+    });
+}
 
-    function stop(){
-      drawing = false;
-      ctx.beginPath();
-    }
+/* WHITEBOARD */
 
-    function draw(e){
+const canvas = document.getElementById("board");
+const ctx = canvas.getContext("2d");
 
-      if(!drawing) return;
+let drawing = false;
+let currentColor = "black";
+let brushSize = 3;
 
-      const rect = canvas.getBoundingClientRect();
+canvas.addEventListener("mousedown", start);
+canvas.addEventListener("mouseup", stop);
+canvas.addEventListener("mousemove", draw);
 
-      ctx.lineWidth = brushSize;
-      ctx.lineCap = "round";
-      ctx.strokeStyle = currentColor;
+function start(e){
+    drawing = true;
+    draw(e);
+}
 
-      ctx.lineTo(
+function stop(){
+    drawing = false;
+    ctx.beginPath();
+}
+
+function draw(e){
+
+    if(!drawing) return;
+
+    const rect = canvas.getBoundingClientRect();
+
+    ctx.lineWidth = brushSize;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = currentColor;
+
+    ctx.lineTo(
         e.clientX - rect.left,
         e.clientY - rect.top
-      );
+    );
 
-      ctx.stroke();
+    ctx.stroke();
 
-      ctx.beginPath();
+    ctx.beginPath();
 
-      ctx.moveTo(
+    ctx.moveTo(
         e.clientX - rect.left,
         e.clientY - rect.top
-      );
-    }
+    );
+}
 
-    function changeColor(color){
-      currentColor = color;
-    }
+function changeColor(color){
+    currentColor = color;
+}
 
-    function changeSize(size){
-      brushSize = size;
-    }
+function changeSize(size){
+    brushSize = size;
+}
 
-    function eraser(){
-      currentColor = "white";
-    }
+function eraser(){
+    currentColor = "white";
+}
 
-    function clearBoard(){
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+function clearBoard(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+}
 
-  </script>
+</script>
 
 </body>
 </html>
