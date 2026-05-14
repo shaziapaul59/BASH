@@ -3,111 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Brain Orbit</title>
 
 <style>
 
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#f3f4f6;
+margin:0;
+font-family:Arial;
+background:#f3f4f6;
 }
 
 /* NAVBAR */
-
 .navbar{
-    background:#1e3a8a;
-    color:white;
-    padding:15px 30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+background:#1e3a8a;
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
 }
 
 .logo{
-    font-size:28px;
-    font-weight:bold;
+font-size:28px;
+font-weight:bold;
 }
 
-.menu a{
-    color:white;
-    text-decoration:none;
-    margin-left:20px;
-    font-size:18px;
-}
-
-/* HERO SECTION */
-
+/* HERO */
 .hero{
-    text-align:center;
-    padding:80px 20px;
-    background:linear-gradient(to right,#2563eb,#1e40af);
-    color:white;
-}
-
-.hero h1{
-    font-size:55px;
-}
-
-.hero p{
-    font-size:22px;
+background:linear-gradient(to right,#2563eb,#1e40af);
+color:white;
+text-align:center;
+padding:70px;
 }
 
 .hero button{
-    padding:15px 30px;
-    border:none;
-    border-radius:10px;
-    background:white;
-    color:#1e3a8a;
-    font-size:20px;
-    cursor:pointer;
-    margin-top:20px;
+padding:12px 25px;
+border:none;
+border-radius:8px;
+cursor:pointer;
 }
 
-/* FEATURES */
-
-.features{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:40px;
+/* COURSES */
+.courses{
+padding:30px;
 }
 
-.card{
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-    text-align:center;
+.course{
+background:white;
+padding:20px;
+margin:10px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
-.card h2{
-    color:#1e3a8a;
+.course button{
+background:#2563eb;
+color:white;
+padding:10px;
+border:none;
+border-radius:8px;
+cursor:pointer;
 }
 
-/* LIVE CLASS */
-
-#live-class{
-    display:none;
-    padding:20px;
+/* FORM */
+#formBox{
+display:none;
+padding:30px;
 }
 
-/* TOOLS */
+form{
+background:white;
+padding:20px;
+max-width:400px;
+margin:auto;
+border-radius:10px;
+}
 
-.tools{
-    margin-bottom:15px;
-    text-align:center;
+input,select{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+/* WHITEBOARD */
+#boardSection{
+display:none;
+padding:20px;
 }
 
 .tools button{
-    padding:10px 15px;
-    margin:5px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    color:white;
-    font-size:16px;
+margin:5px;
+padding:8px;
+border:none;
+color:white;
+cursor:pointer;
 }
 
 .black{background:black;}
@@ -118,21 +106,10 @@ body{
 .clear{background:#111827;}
 
 canvas{
-    border:3px solid black;
-    background:white;
-    display:block;
-    margin:auto;
-    cursor:crosshair;
-}
-
-/* FOOTER */
-
-.footer{
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:20px;
-    margin-top:40px;
+border:2px solid black;
+background:white;
+display:block;
+margin:auto;
 }
 
 </style>
@@ -140,203 +117,144 @@ canvas{
 
 <body>
 
-<!-- NAVBAR -->
-
 <div class="navbar">
-
-    <div class="logo">
-        Brain Orbit
-    </div>
-
-    <div class="menu">
-        <a href="#">Home</a>
-        <a href="#">Notes</a>
-        <a href="#">Courses</a>
-        <a href="#">Live Classes</a>
-        <a href="#">Contact</a>
-    </div>
-
+<div class="logo">Brain Orbit</div>
 </div>
-
-<!-- HERO -->
 
 <div class="hero">
+<h1>Learn Maths & Science Easily</h1>
+<p>Classes 1st to 9th Enrollment Available</p>
+<button onclick="scrollCourses()">Explore Courses</button>
+</div>
 
-    <h1>Welcome to Brain Orbit</h1>
+<div class="courses" id="courses">
 
-    <p>
-        Learn Maths & Science in a Smart and Interactive Way
-    </p>
+<h2>Courses (Class 1 - 9)</h2>
 
-    <button onclick="openLiveClass()">
-        Join Live Class
-    </button>
+<div id="courseList"></div>
 
 </div>
 
-<!-- FEATURES -->
+<div id="formBox">
 
-<div class="features">
+<h2>Student Enrollment Form</h2>
 
-    <div class="card">
-        <h2>📚 Notes</h2>
-        <p>Easy and detailed notes for students.</p>
-    </div>
+<form onsubmit="submitForm(event)">
 
-    <div class="card">
-        <h2>🎥 Live Classes</h2>
-        <p>Interactive online classes with whiteboard.</p>
-    </div>
+<input type="text" placeholder="Student Name" required>
+<input type="email" placeholder="Email" required>
+<input type="text" placeholder="Phone Number" required>
 
-    <div class="card">
-        <h2>🧪 Science Learning</h2>
-        <p>Understand science with diagrams and examples.</p>
-    </div>
+<select id="classSelect" required>
+<option value="">Select Class</option>
+<option>Class 1</option>
+<option>Class 2</option>
+<option>Class 3</option>
+<option>Class 4</option>
+<option>Class 5</option>
+<option>Class 6</option>
+<option>Class 7</option>
+<option>Class 8</option>
+<option>Class 9</option>
+</select>
 
-    <div class="card">
-        <h2>➗ Maths Practice</h2>
-        <p>Solve problems and improve concepts easily.</p>
-    </div>
+<button type="submit">Enroll Now</button>
 
-</div>
-
-<!-- LIVE CLASS SECTION -->
-
-<div id="live-class">
-
-    <h1 style="text-align:center;color:#1e3a8a;">
-        Brain Orbit Live Whiteboard
-    </h1>
-
-    <!-- TOOLS -->
-
-    <div class="tools">
-
-        <button class="black" onclick="changeColor('black')">
-            Black Pen
-        </button>
-
-        <button class="red" onclick="changeColor('red')">
-            Red Pen
-        </button>
-
-        <button class="blue" onclick="changeColor('blue')">
-            Blue Pen
-        </button>
-
-        <button class="green" onclick="changeColor('green')">
-            Green Pen
-        </button>
-
-        <button class="eraser" onclick="eraser()">
-            Eraser
-        </button>
-
-        <button onclick="changeSize(2)">
-            Small
-        </button>
-
-        <button onclick="changeSize(5)">
-            Medium
-        </button>
-
-        <button onclick="changeSize(10)">
-            Large
-        </button>
-
-        <button class="clear" onclick="clearBoard()">
-            Clear Board
-        </button>
-
-    </div>
-
-    <!-- WHITEBOARD -->
-
-    <canvas id="board" width="1100" height="500"></canvas>
+</form>
 
 </div>
 
-<!-- FOOTER -->
+<div id="boardSection">
 
-<div class="footer">
-    © 2026 Brain Orbit | Learn Smart. Grow Beyond.
+<h2 style="text-align:center;">Live Whiteboard</h2>
+
+<div class="tools" style="text-align:center;">
+
+<button class="black" onclick="setColor('black')">Black</button>
+<button class="red" onclick="setColor('red')">Red</button>
+<button class="blue" onclick="setColor('blue')">Blue</button>
+<button class="green" onclick="setColor('green')">Green</button>
+<button class="eraser" onclick="setColor('white')">Eraser</button>
+<button class="clear" onclick="clearBoard()">Clear</button>
+
+</div>
+
+<canvas id="board" width="900" height="450"></canvas>
+
 </div>
 
 <script>
 
-/* OPEN LIVE CLASS */
+/* CREATE COURSE LIST */
+let courseDiv = document.getElementById("courseList");
 
-function openLiveClass(){
-    document.getElementById("live-class").style.display = "block";
+for(let i=1;i<=9;i++){
+courseDiv.innerHTML += `
+<div class="course">
+<h3>Class ${i}</h3>
+<p>Maths + Science Complete Course</p>
+<button onclick="openForm(${i})">Apply</button>
+</div>
+`;
+}
 
-    window.scrollTo({
-        top:document.getElementById("live-class").offsetTop,
-        behavior:"smooth"
-    });
+let selectedClass = "";
+
+/* OPEN FORM */
+function openForm(cls){
+selectedClass = cls;
+document.getElementById("formBox").style.display="block";
+document.getElementById("classSelect").value="Class "+cls;
+document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
+}
+
+/* SCROLL */
+function scrollCourses(){
+document.getElementById("courses").scrollIntoView({behavior:"smooth"});
+}
+
+/* FORM SUBMIT */
+function submitForm(e){
+e.preventDefault();
+
+alert("Enrollment Successful!");
+
+document.getElementById("boardSection").style.display="block";
+document.getElementById("boardSection").scrollIntoView({behavior:"smooth"});
 }
 
 /* WHITEBOARD */
+let canvas=document.getElementById("board");
+let ctx=canvas.getContext("2d");
 
-const canvas = document.getElementById("board");
-const ctx = canvas.getContext("2d");
+let draw=false;
+let color="black";
 
-let drawing = false;
-let currentColor = "black";
-let brushSize = 3;
+canvas.addEventListener("mousedown",()=>draw=true);
+canvas.addEventListener("mouseup",()=>{draw=false;ctx.beginPath();});
+canvas.addEventListener("mousemove",drawFunc);
 
-canvas.addEventListener("mousedown", start);
-canvas.addEventListener("mouseup", stop);
-canvas.addEventListener("mousemove", draw);
+function drawFunc(e){
+if(!draw) return;
 
-function start(e){
-    drawing = true;
-    draw(e);
+let rect=canvas.getBoundingClientRect();
+
+ctx.lineWidth=3;
+ctx.lineCap="round";
+ctx.strokeStyle=color;
+
+ctx.lineTo(e.clientX-rect.left,e.clientY-rect.top);
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(e.clientX-rect.left,e.clientY-rect.top);
 }
 
-function stop(){
-    drawing = false;
-    ctx.beginPath();
-}
-
-function draw(e){
-
-    if(!drawing) return;
-
-    const rect = canvas.getBoundingClientRect();
-
-    ctx.lineWidth = brushSize;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = currentColor;
-
-    ctx.lineTo(
-        e.clientX - rect.left,
-        e.clientY - rect.top
-    );
-
-    ctx.stroke();
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        e.clientX - rect.left,
-        e.clientY - rect.top
-    );
-}
-
-function changeColor(color){
-    currentColor = color;
-}
-
-function changeSize(size){
-    brushSize = size;
-}
-
-function eraser(){
-    currentColor = "white";
+function setColor(c){
+color=c;
 }
 
 function clearBoard(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.clearRect(0,0,canvas.width,canvas.height);
 }
 
 </script>
