@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Brain Orbit Live Class</title>
+  <title>Brain Orbit Whiteboard</title>
 
   <style>
     body{
       margin:0;
       font-family:Arial, sans-serif;
-      background:#f4f6f9;
+      background:#f3f4f6;
       text-align:center;
     }
 
     .navbar{
       background:#1e3a8a;
-      padding:15px;
       color:white;
+      padding:15px;
       font-size:24px;
       font-weight:bold;
     }
 
     .live-btn{
-      margin-top:50px;
+      margin-top:30px;
       padding:15px 30px;
       font-size:20px;
       border:none;
@@ -41,51 +41,74 @@
       margin-top:20px;
     }
 
-    canvas{
-      border:3px solid #000;
-      background:white;
-      cursor:crosshair;
-    }
-
     .tools{
       margin:15px;
     }
 
     .tools button{
-      padding:10px 20px;
+      padding:10px 15px;
       margin:5px;
       border:none;
       border-radius:8px;
       cursor:pointer;
-      background:#111827;
-      color:white;
+      font-size:16px;
     }
+
+    canvas{
+      border:3px solid black;
+      background:white;
+      cursor:crosshair;
+    }
+
+    .black{ background:black; color:white; }
+    .red{ background:red; color:white; }
+    .blue{ background:blue; color:white; }
+    .green{ background:green; color:white; }
+    .eraser{ background:gray; color:white; }
+    .clear{ background:#111827; color:white; }
+
   </style>
 </head>
 <body>
 
   <div class="navbar">
-    Brain Orbit Live Classes
+    Brain Orbit Live Whiteboard
   </div>
 
-  <!-- Live Class Button -->
   <button class="live-btn" onclick="openWhiteboard()">
     Open Live Class
   </button>
 
-  <!-- Whiteboard -->
   <div id="whiteboard-container">
 
     <div class="tools">
-      <button onclick="clearBoard()">Clear Board</button>
+
+      <!-- Pen Colors -->
+      <button class="black" onclick="changeColor('black')">Black Pen</button>
+      <button class="red" onclick="changeColor('red')">Red Pen</button>
+      <button class="blue" onclick="changeColor('blue')">Blue Pen</button>
+      <button class="green" onclick="changeColor('green')">Green Pen</button>
+
+      <!-- Eraser -->
+      <button class="eraser" onclick="eraser()">Eraser</button>
+
+      <!-- Brush Sizes -->
+      <button onclick="changeSize(2)">Small</button>
+      <button onclick="changeSize(5)">Medium</button>
+      <button onclick="changeSize(10)">Large</button>
+
+      <!-- Clear -->
+      <button class="clear" onclick="clearBoard()">Clear Board</button>
+
     </div>
 
-    <canvas id="board" width="1000" height="500"></canvas>
+    <canvas id="board" width="1100" height="500"></canvas>
 
   </div>
 
   <script>
-    function openWhiteboard() {
+
+    function openWhiteboard(){
       document.getElementById("whiteboard-container").style.display = "block";
     }
 
@@ -93,6 +116,8 @@
     const ctx = canvas.getContext("2d");
 
     let drawing = false;
+    let currentColor = "black";
+    let brushSize = 3;
 
     canvas.addEventListener("mousedown", start);
     canvas.addEventListener("mouseup", stop);
@@ -109,13 +134,14 @@
     }
 
     function draw(e){
+
       if(!drawing) return;
 
-      ctx.lineWidth = 3;
-      ctx.lineCap = "round";
-      ctx.strokeStyle = "black";
-
       const rect = canvas.getBoundingClientRect();
+
+      ctx.lineWidth = brushSize;
+      ctx.lineCap = "round";
+      ctx.strokeStyle = currentColor;
 
       ctx.lineTo(
         e.clientX - rect.left,
@@ -123,6 +149,7 @@
       );
 
       ctx.stroke();
+
       ctx.beginPath();
 
       ctx.moveTo(
@@ -131,9 +158,22 @@
       );
     }
 
+    function changeColor(color){
+      currentColor = color;
+    }
+
+    function changeSize(size){
+      brushSize = size;
+    }
+
+    function eraser(){
+      currentColor = "white";
+    }
+
     function clearBoard(){
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
+
   </script>
 
 </body>
