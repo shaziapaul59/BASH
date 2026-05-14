@@ -2,244 +2,139 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BrainOrbit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brain Orbit Live Class</title>
+
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f9ff;
-      color: #222;
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:#f4f6f9;
+      text-align:center;
     }
 
-    header {
-      background: #0b57d0;
-      color: white;
-      padding: 20px;
-      text-align: center;
+    .navbar{
+      background:#1e3a8a;
+      padding:15px;
+      color:white;
+      font-size:24px;
+      font-weight:bold;
     }
 
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
+    .live-btn{
+      margin-top:50px;
+      padding:15px 30px;
+      font-size:20px;
+      border:none;
+      border-radius:10px;
+      background:#2563eb;
+      color:white;
+      cursor:pointer;
     }
 
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(to right, #dbeafe, #ffffff);
+    .live-btn:hover{
+      background:#1d4ed8;
     }
 
-    .hero h1 {
-      font-size: 50px;
-      color: #0b57d0;
+    #whiteboard-container{
+      display:none;
+      margin-top:20px;
     }
 
-    .hero p {
-      font-size: 20px;
-      max-width: 700px;
-      margin: auto;
+    canvas{
+      border:3px solid #000;
+      background:white;
+      cursor:crosshair;
     }
 
-    .btn {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 15px 30px;
-      background: #0b57d0;
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      font-size: 18px;
+    .tools{
+      margin:15px;
     }
 
-    .courses {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 50px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    .card h2 {
-      color: #0b57d0;
-    }
-
-    .about, .contact {
-      text-align: center;
-      padding: 60px 20px;
-    }
-
-    footer {
-      background: #0b57d0;
-      color: white;
-      text-align: center;
-      padding: 20px;
+    .tools button{
+      padding:10px 20px;
+      margin:5px;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      background:#111827;
+      color:white;
     }
   </style>
 </head>
 <body>
 
-  <header>
-  <h1>BrainOrbit</h1>
-  <p style="font-size:18px;">India's Smart Learning Platform for Maths & Science</p>
+  <div class="navbar">
+    Brain Orbit Live Classes
+  </div>
 
-  <nav>
-    <a href="#">Home</a>
-    <a href="#courses">Courses</a>
-    <a href="#notes">Notes</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+  <!-- Live Class Button -->
+  <button class="live-btn" onclick="openWhiteboard()">
+    Open Live Class
+  </button>
 
-  <section class="hero">
+  <!-- Whiteboard -->
+  <div id="whiteboard-container">
 
-  <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644" alt="Students" style="width:85%;max-width:900px;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.2);margin-bottom:30px;">
-
-  <h1>Learn Maths & Science in an Easy Way</h1>
-
-  <p>
-    BrainOrbit provides smart online education with live classes, handwritten notes,
-    quizzes, previous year papers, and concept-based learning for students.
-  </p>
-
-  <a href="#courses" class="btn">Explore Courses</a>
-
-  <div style="margin-top:50px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:1100px;margin-left:auto;margin-right:auto;">
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b" alt="Online Classes" style="width:100%;border-radius:15px;">
-      <h2>Interactive Classes</h2>
-      <p>Attend engaging online classes with expert teachers.</p>
+    <div class="tools">
+      <button onclick="clearBoard()">Clear Board</button>
     </div>
 
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0" alt="Notes" style="width:100%;border-radius:15px;">
-      <h2>Study Notes</h2>
-      <p>Easy handwritten notes and important formulas for revision.</p>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a" alt="Exams" style="width:100%;border-radius:15px;">
-      <h2>Exam Preparation</h2>
-      <p>Prepare with quizzes, mock tests, and previous year papers.</p>
-    </div>
+    <canvas id="board" width="1000" height="500"></canvas>
 
   </div>
 
-</section>
+  <script>
+    function openWhiteboard() {
+      document.getElementById("whiteboard-container").style.display = "block";
+    }
 
-  <section class="courses" id="courses">
+    const canvas = document.getElementById("board");
+    const ctx = canvas.getContext("2d");
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb" alt="Maths" style="width:100%;border-radius:10px;">
-    <h2>Mathematics</h2>
-    <p>Learn Algebra, Geometry, Trigonometry, and Calculus.</p>
-  </div>
+    let drawing = false;
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d" alt="Science" style="width:100%;border-radius:10px;">
-    <h2>Science</h2>
-    <p>Explore Physics, Chemistry, Biology, and practical concepts.</p>
-  </div>
+    canvas.addEventListener("mousedown", start);
+    canvas.addEventListener("mouseup", stop);
+    canvas.addEventListener("mousemove", draw);
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" alt="Live Classes" style="width:100%;border-radius:10px;">
-    <h2>Live Classes</h2>
-    <p>Attend live sessions and solve doubts with teachers.</p>
-  </div>
+    function start(e){
+      drawing = true;
+      draw(e);
+    }
 
+    function stop(){
+      drawing = false;
+      ctx.beginPath();
+    }
 
-    <div class="card">
-      <h2>Mathematics</h2>
-      <p>Learn Algebra, Geometry, Trigonometry, and Calculus.</p>
-    </div>
+    function draw(e){
+      if(!drawing) return;
 
-    <div class="card">
-      <h2>Science</h2>
-      <p>Explore Physics, Chemistry, Biology, and practical concepts.</p>
-    </div>
+      ctx.lineWidth = 3;
+      ctx.lineCap = "round";
+      ctx.strokeStyle = "black";
 
-    <div class="card">
-      <h2>Live Classes</h2>
-      <p>Attend live sessions and solve doubts with teachers.</p>
-    </div>
-  </section>
+      const rect = canvas.getBoundingClientRect();
 
-  <section class="about" id="about">
-  <h2>About BrainOrbit</h2>
+      ctx.lineTo(
+        e.clientX - rect.left,
+        e.clientY - rect.top
+      );
 
-  <p>
-    BrainOrbit is a modern educational platform helping students master Maths and Science.
-    We focus on concept clarity, problem solving, and exam preparation through interactive learning.
-  </p>
+      ctx.stroke();
+      ctx.beginPath();
 
-  <div style="margin-top:40px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+      ctx.moveTo(
+        e.clientX - rect.left,
+        e.clientY - rect.top
+      );
+    }
 
-    <div class="card" style="max-width:250px;">
-      <h2>5000+</h2>
-      <p>Students Learning</p>
-    </div>
-
-    <div class="card" style="max-width:250px;">
-      <h2>100+</h2>
-      <p>Video Lessons</p>
-    </div>
-
-    <div class="card" style="max-width:250px;">
-      <h2>24/7</h2>
-      <p>Learning Support</p>
-    </div>
-
-  </div>
-</section>
-
-  <section class="courses" id="notes">
-
-  <div class="card">
-    <h2>Maths Notes</h2>
-    <p><b>Algebra:</b> Study of variables, equations, and formulas.</p>
-    <p><b>Geometry:</b> Shapes, angles, circles, triangles, and theorems.</p>
-    <p><b>Trigonometry:</b> Sine, cosine, tangent, and applications.</p>
-    <a class="btn" href="#">Download Notes</a>
-  </div>
-
-  <div class="card">
-    <h2>Science Notes</h2>
-    <p><b>Physics:</b> Motion, force, electricity, and energy.</p>
-    <p><b>Chemistry:</b> Atoms, reactions, acids, bases, and salts.</p>
-    <p><b>Biology:</b> Human body, plants, respiration, and cells.</p>
-    <a class="btn" href="#">Download Notes</a>
-  </div>
-
-  <div class="card">
-    <h2>Previous Year Papers</h2>
-    <p>Practice important exam questions and sample papers.</p>
-    <a class="btn" href="#">View Papers</a>
-  </div>
-
-</section>
-
-<section class="contact" id="contact">
-    <h2>Contact Us</h2>
-    <p>Email: support@brainorbit.com</p>
-    <p>Phone: +91 9876543210</p>
-  </section>
-
-  <footer>
-    <p>© 2026 BrainOrbit. All Rights Reserved.</p>
-  </footer>
+    function clearBoard(){
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  </script>
 
 </body>
 </html>
-
