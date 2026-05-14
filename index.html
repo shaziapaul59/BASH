@@ -3,97 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brain Orbit</title>
+<title>Brain Orbit Dashboard</title>
 
 <style>
 
+/* RESET */
 body{
 margin:0;
 font-family:Arial;
-background:#f3f4f6;
+background:#f5f7fb;
 }
 
-/* NAVBAR */
-.navbar{
-background:#1e3a8a;
+/* TOP BAR */
+.topbar{
+height:60px;
+background:#0f172a;
 color:white;
-padding:15px;
 display:flex;
+align-items:center;
 justify-content:space-between;
+padding:0 20px;
+position:fixed;
+width:100%;
+top:0;
 }
 
-.logo{
-font-size:28px;
+.brand{
+font-size:22px;
 font-weight:bold;
 }
 
-/* HERO */
-.hero{
-background:linear-gradient(to right,#2563eb,#1e40af);
-color:white;
-text-align:center;
-padding:70px;
+/* SIDEBAR */
+.sidebar{
+position:fixed;
+top:60px;
+left:0;
+width:230px;
+height:100%;
+background:white;
+border-right:1px solid #e5e7eb;
+padding-top:20px;
 }
 
-.hero button{
-padding:12px 25px;
+.sidebar button{
+width:90%;
+margin:10px;
+padding:12px;
 border:none;
-border-radius:8px;
+background:#f1f5f9;
+border-radius:10px;
 cursor:pointer;
+font-weight:bold;
 }
 
-/* COURSES */
-.courses{
-padding:30px;
+.sidebar button:hover{
+background:#dbeafe;
 }
 
-.course{
+/* MAIN */
+.main{
+margin-left:250px;
+margin-top:80px;
+padding:20px;
+}
+
+/* CARDS */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.card{
 background:white;
 padding:20px;
-margin:10px;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
 
-.course button{
+/* SECTIONS */
+.section{
+display:none;
+}
+
+.active{
+display:block;
+}
+
+/* BUTTON */
+.btn{
+padding:10px 15px;
 background:#2563eb;
 color:white;
-padding:10px;
 border:none;
 border-radius:8px;
 cursor:pointer;
 }
 
 /* FORM */
-#formBox{
-display:none;
-padding:30px;
-}
-
-form{
-background:white;
-padding:20px;
-max-width:400px;
-margin:auto;
-border-radius:10px;
-}
-
 input,select{
 width:100%;
 padding:10px;
-margin:10px 0;
+margin-top:10px;
+border:1px solid #ddd;
+border-radius:8px;
 }
 
 /* WHITEBOARD */
-#boardSection{
-display:none;
-padding:20px;
+canvas{
+border:2px solid #000;
+background:white;
+display:block;
+margin:auto;
 }
 
 .tools button{
 margin:5px;
 padding:8px;
 border:none;
+border-radius:8px;
 color:white;
 cursor:pointer;
 }
@@ -102,42 +130,98 @@ cursor:pointer;
 .red{background:red;}
 .blue{background:blue;}
 .green{background:green;}
-.eraser{background:gray;}
 .clear{background:#111827;}
-
-canvas{
-border:2px solid black;
-background:white;
-display:block;
-margin:auto;
-}
 
 </style>
 </head>
 
 <body>
 
-<div class="navbar">
-<div class="logo">Brain Orbit</div>
+<!-- TOP BAR -->
+<div class="topbar">
+<div class="brand">Brain Orbit</div>
+<div>Student Dashboard</div>
 </div>
 
-<div class="hero">
-<h1>Learn Maths & Science Easily</h1>
-<p>Classes 1st to 9th Enrollment Available</p>
-<button onclick="scrollCourses()">Explore Courses</button>
-</div>
+<!-- SIDEBAR -->
+<div class="sidebar">
 
-<div class="courses" id="courses">
-
-<h2>Courses (Class 1 - 9)</h2>
-
-<div id="courseList"></div>
+<button onclick="show('home')">Dashboard</button>
+<button onclick="show('courses')">Courses</button>
+<button onclick="show('enroll')">Enrollment</button>
+<button onclick="show('notes')">Notes</button>
+<button onclick="show('live')">Live Classes</button>
+<button onclick="show('board')">Whiteboard</button>
 
 </div>
 
-<div id="formBox">
+<!-- MAIN -->
+<div class="main">
 
-<h2>Student Enrollment Form</h2>
+<!-- HOME -->
+<div id="home" class="section active">
+
+<h1>Welcome to Brain Orbit</h1>
+
+<div class="grid">
+
+<div class="card">
+<h3>Live Classes</h3>
+<p>Join interactive sessions with teachers</p>
+<button class="btn" onclick="show('live')">Join</button>
+</div>
+
+<div class="card">
+<h3>Courses</h3>
+<p>Class 1–9 structured learning</p>
+<button class="btn" onclick="show('courses')">View</button>
+</div>
+
+<div class="card">
+<h3>Whiteboard</h3>
+<p>Write & solve problems live</p>
+<button class="btn" onclick="show('board')">Open</button>
+</div>
+
+<div class="card">
+<h3>Enrollment</h3>
+<p>Join any class instantly</p>
+<button class="btn" onclick="show('enroll')">Apply</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- COURSES -->
+<div id="courses" class="section">
+
+<h2>Courses (Class 1–9)</h2>
+
+<div class="grid">
+
+<script>
+for(let i=1;i<=9;i++){
+document.write(`
+<div class="card">
+<h3>Class ${i}</h3>
+<p>Maths + Science Program</p>
+<button class="btn" onclick="selectClass(${i})">Enroll</button>
+</div>
+`);
+}
+</script>
+
+</div>
+
+</div>
+
+<!-- ENROLLMENT -->
+<div id="enroll" class="section">
+
+<h2>Student Enrollment</h2>
+
+<div class="card">
 
 <form onsubmit="submitForm(event)">
 
@@ -145,112 +229,108 @@ margin:auto;
 <input type="email" placeholder="Email" required>
 <input type="text" placeholder="Phone Number" required>
 
-<select id="classSelect" required>
-<option value="">Select Class</option>
-<option>Class 1</option>
-<option>Class 2</option>
-<option>Class 3</option>
-<option>Class 4</option>
-<option>Class 5</option>
-<option>Class 6</option>
-<option>Class 7</option>
-<option>Class 8</option>
-<option>Class 9</option>
+<select id="classSelect">
+<option>Select Class</option>
 </select>
 
-<button type="submit">Enroll Now</button>
+<button class="btn">Submit</button>
 
 </form>
 
 </div>
 
-<div id="boardSection">
+</div>
 
-<h2 style="text-align:center;">Live Whiteboard</h2>
+<!-- NOTES -->
+<div id="notes" class="section">
+
+<h2>Notes</h2>
+
+<div class="card">Maths Notes - Algebra, Geometry, Arithmetic</div>
+<div class="card">Science Notes - Physics, Chemistry, Biology</div>
+
+</div>
+
+<!-- LIVE -->
+<div id="live" class="section">
+
+<h2>Live Classes</h2>
+
+<div class="card">
+<p>Next live class starts at 5 PM</p>
+<button class="btn">Join Live</button>
+</div>
+
+</div>
+
+<!-- WHITEBOARD -->
+<div id="board" class="section">
+
+<h2>Whiteboard</h2>
 
 <div class="tools" style="text-align:center;">
 
-<button class="black" onclick="setColor('black')">Black</button>
-<button class="red" onclick="setColor('red')">Red</button>
-<button class="blue" onclick="setColor('blue')">Blue</button>
-<button class="green" onclick="setColor('green')">Green</button>
-<button class="eraser" onclick="setColor('white')">Eraser</button>
+<button class="black" onclick="color='black'">Black</button>
+<button class="red" onclick="color='red'">Red</button>
+<button class="blue" onclick="color='blue'">Blue</button>
+<button class="green" onclick="color='green'">Green</button>
 <button class="clear" onclick="clearBoard()">Clear</button>
 
 </div>
 
-<canvas id="board" width="900" height="450"></canvas>
+<canvas id="canvas" width="900" height="450"></canvas>
+
+</div>
 
 </div>
 
 <script>
 
-/* CREATE COURSE LIST */
-let courseDiv = document.getElementById("courseList");
+/* NAVIGATION */
+function show(id){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
 
-for(let i=1;i<=9;i++){
-courseDiv.innerHTML += `
-<div class="course">
-<h3>Class ${i}</h3>
-<p>Maths + Science Complete Course</p>
-<button onclick="openForm(${i})">Apply</button>
-</div>
+/* SELECT CLASS */
+function selectClass(c){
+show('enroll');
+document.getElementById('classSelect').innerHTML = `
+<option>Class ${c}</option>
 `;
 }
 
-let selectedClass = "";
-
-/* OPEN FORM */
-function openForm(cls){
-selectedClass = cls;
-document.getElementById("formBox").style.display="block";
-document.getElementById("classSelect").value="Class "+cls;
-document.getElementById("formBox").scrollIntoView({behavior:"smooth"});
-}
-
-/* SCROLL */
-function scrollCourses(){
-document.getElementById("courses").scrollIntoView({behavior:"smooth"});
-}
-
-/* FORM SUBMIT */
+/* FORM */
 function submitForm(e){
 e.preventDefault();
-
 alert("Enrollment Successful!");
-
-document.getElementById("boardSection").style.display="block";
-document.getElementById("boardSection").scrollIntoView({behavior:"smooth"});
+show('live');
 }
 
 /* WHITEBOARD */
-let canvas=document.getElementById("board");
+let canvas=document.getElementById("canvas");
 let ctx=canvas.getContext("2d");
 
-let draw=false;
+let drawing=false;
 let color="black";
 
-canvas.addEventListener("mousedown",()=>draw=true);
-canvas.addEventListener("mouseup",()=>{draw=false;ctx.beginPath();});
-canvas.addEventListener("mousemove",drawFunc);
+canvas.addEventListener("mousedown",()=>drawing=true);
+canvas.addEventListener("mouseup",()=>{drawing=false;ctx.beginPath();});
+canvas.addEventListener("mousemove",draw);
 
-function drawFunc(e){
-if(!draw) return;
+function draw(e){
+if(!drawing) return;
 
-let rect=canvas.getBoundingClientRect();
+let r=canvas.getBoundingClientRect();
 
 ctx.lineWidth=3;
 ctx.lineCap="round";
 ctx.strokeStyle=color;
 
-ctx.lineTo(e.clientX-rect.left,e.clientY-rect.top);
+ctx.lineTo(e.clientX-r.left,e.clientY-r.top);
 ctx.stroke();
 ctx.beginPath();
-ctx.moveTo(e.clientX-rect.left,e.clientY-rect.top);
-}
-
-function setColor(c){
-color=c;
+ctx.moveTo(e.clientX-r.left,e.clientY-r.top);
 }
 
 function clearBoard(){
@@ -261,3 +341,8 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
 
 </body>
 </html>
+
+
+
+
+
